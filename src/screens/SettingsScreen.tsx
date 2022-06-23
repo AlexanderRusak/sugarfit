@@ -28,11 +28,19 @@ export const SettingsScreen = ({ navigation }: any) => {
     { array: ColorSchema, title: "Color Schema", type: 'color' }
   ];
 
+  const handleSection = useCallback((data: string, type: string) => {
+    setSettingsState({ ...settingsState, [type.split(' ')[0].toLowerCase()]: data })
+    dispatch(saveSettingsParameters({ ...settingsState, [type.split(' ')[0].toLowerCase()]: data }));
+    type.split(' ')[0].toLowerCase() === 'color' ? setThemeColor(data) : null
+  }, []);
+
   const selectSectionComponent = useMemo(
     () => paramsArray.map(({ array, title, type }) => {
       const downArray = array.reduce((prev, { title: name }) => [...prev, name], [] as string[]);
       const defaultValue = array.find(({ value, title }) => {
-        return (type === 'color' ? value.toLowerCase() : title.toLowerCase()) === settingsData[type as keyof SettingsParameters].toLowerCase()
+        console.log('err');
+
+        return (type === 'color' ? value.toLowerCase() : title.toLowerCase()) === settingsData[type as keyof SettingsParameters].toLowerCase();
       });
 
       return defaultValue && <SelectSection
@@ -45,11 +53,7 @@ export const SettingsScreen = ({ navigation }: any) => {
     }), [settingsState]
   );
 
-  const handleSection = useCallback((data: string, type: string) => {
-    setSettingsState({ ...settingsState, [type.split(' ')[0].toLowerCase()]: data })
-    dispatch(saveSettingsParameters({ ...settingsState, [type.split(' ')[0].toLowerCase()]: data }));
-    type.split(' ')[0].toLowerCase() === 'color' ? setThemeColor(data) : null
-  }, [selectSectionComponent]);
+
 
   const handlePress = () => {
     navigation.navigate(BodyConfiguration)

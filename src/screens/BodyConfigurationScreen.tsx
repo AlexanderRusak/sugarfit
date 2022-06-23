@@ -44,6 +44,7 @@ export const BodyConfigurationScreen = ({ navigation }: any) => {
   }, [bodyParametersState, navigation])
 
   const handleScreen = (nameScreen: string, data: number) => {
+
     bodyParametersState && navigation.navigate(nameScreen, {
       isMeasuring: !!["Weigh", "Height"].find((name) => name === nameScreen),
       type: nameScreen.toLowerCase(),
