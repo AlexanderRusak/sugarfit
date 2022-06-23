@@ -8,8 +8,7 @@ import { BodyConfiguration } from '../constants/screens/screens';
 import { ThemeContext } from '../context/ThemeContext';
 import { ColorSchema, EnergyUnits, Languages } from '../settings/constants';
 import { IStore } from '../store';
-import { loadBodyParameters } from '../store/actions/bodyParameters';
-import { loadSettingsParameters, saveSettingsParameters } from '../store/actions/settingsParameter';
+import { saveSettingsParameters } from '../store/actions/settingsParameter';
 import { SettingsParameters } from '../store/types/settingsParameters';
 
 import { theme } from '../styles/theme';
@@ -47,8 +46,6 @@ export const SettingsScreen = ({ navigation }: any) => {
   );
 
   const handleSection = useCallback((data: string, type: string) => {
-    console.log('fail');
-
     setSettingsState({ ...settingsState, [type.split(' ')[0].toLowerCase()]: data })
     dispatch(saveSettingsParameters({ ...settingsState, [type.split(' ')[0].toLowerCase()]: data }));
     type.split(' ')[0].toLowerCase() === 'color' ? setThemeColor(data) : null
