@@ -10,7 +10,7 @@ import { Age, BodyConfiguration, BodyParameters, Height, Weigh } from '../consta
 import { useDispatch } from 'react-redux';
 import { getDataFromStorage, setDataToStorage } from '../storage/storageHelpers';
 import { STORAGE_KEYS } from '../storage/constants';
-import { initialSettings } from '../storage/inititalStates';
+import { initialBodyParameters, initialSettings } from '../storage/inititalStates';
 import { saveSettingsParameters } from '../store/actions/settingsParameter';
 import { Dispatch } from '@reduxjs/toolkit';
 import { SettingsParameters } from '../store/types/settingsParameters';
@@ -27,7 +27,6 @@ export const MainEntry = () => {
 
   useEffect(() => {
     const getData = async () => {
-      /* await removeDataFromStorage(STORAGE_KEYS.SetingsParameters); */
       const data = await getDataFromStorage(STORAGE_KEYS.SetingsParameters)
 
       if (!data) {
@@ -41,6 +40,22 @@ export const MainEntry = () => {
     }
     getData();
   });
+
+  /*   useEffect(() => {
+      const getData = async () => {
+        const data: BodyParameters = await getDataFromStorage(STORAGE_KEYS.BodyParameters);
+        if (!data.length) {
+          setDataToStorage(STORAGE_KEYS.BodyParameters, [initialBodyParameters]);
+          getData();
+        } else {
+          const { } = data[0] as BodyParameters
+          dispatch(saveSettingsParameters({ color, energy, language }));
+          setThemeColor(color)
+        }
+  
+      }
+      getData();
+    }); */
 
   console.log(themeColor, 'context');
 

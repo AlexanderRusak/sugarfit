@@ -1,7 +1,15 @@
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, View, Text } from 'react-native';
 
 
 export const GraphsScreen = () => {
+
+
+  const { params } = useRoute()
+
+  console.log(params);
+
+
   return (
     <View style={styles.container}>
       <Text>Graphs Screen</Text>
