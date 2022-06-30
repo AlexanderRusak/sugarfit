@@ -1,15 +1,26 @@
-import { useMemo } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useEffect, useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { SummarySection } from '../components/summary/SummarySection';
-import { imageType, sectionsData, SummarySectionType } from '../constants/summary/summaryData';
-import Lungs from '../static/images/lungs.png';
-import store, { IStore } from '../store';
+import { imageType } from '../constants/summary/summaryData';
+import { isPushToSetting } from '../logic/helpers/helpers';
+import { IStore } from '../store';
 
 export const SummaryScreen = () => {
 
-  const { data } = useSelector((store: IStore) => store.bodyParameters)
-  console.log(data);
+  const { data } = useSelector((store: IStore) => store.bodyParameters);
+  const { navigate } = useNavigation()
+  console.log('ddddd');
+  const isFocused = useIsFocused();
+  console.log(isFocused);
+
+
+  useEffect(() => {
+    console.log(data, isFocused);
+
+    data.length && isPushToSetting(data[0], navigate)
+  }, [isFocused])
 
 
   const saturationSection = useMemo(() => {

@@ -38,8 +38,6 @@ export const SettingsScreen = ({ navigation }: any) => {
     () => paramsArray.map(({ array, title, type }) => {
       const downArray = array.reduce((prev, { title: name }) => [...prev, name], [] as string[]);
       const defaultValue = array.find(({ value, title }) => {
-        console.log('err');
-
         return (type === 'color' ? value.toLowerCase() : title.toLowerCase()) === settingsData[type as keyof SettingsParameters].toLowerCase();
       });
 

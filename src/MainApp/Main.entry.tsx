@@ -1,20 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View } from 'react-native';
 import { MainScreen } from '../screens/MainScreen';
 import { theme } from '../styles/theme';
 import { BodyConfigurationScreen } from '../screens/BodyConfigurationScreen';
 import { BodyParameter } from '../screens/BodyParameterScreen';
-import { Age, BodyConfiguration, BodyParameters, Height, Weigh } from '../constants/screens/screens';
-import { useDispatch } from 'react-redux';
+import { Age, BodyConfiguration, BodyParameters, Height, Settings, Weigh } from '../constants/screens/screens';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDataFromStorage, setDataToStorage } from '../storage/storageHelpers';
 import { STORAGE_KEYS } from '../storage/constants';
 import { initialBodyParameters, initialSettings } from '../storage/inititalStates';
 import { saveSettingsParameters } from '../store/actions/settingsParameter';
 import { Dispatch } from '@reduxjs/toolkit';
-import { SettingsParameters } from '../store/types/settingsParameters';
+import { BodyParameters as BodyType, SettingsParameters } from '../store/types/settingsParameters';
 import { ThemeContext } from '../context/ThemeContext';
+import { IStore } from '../store';
+import { saveBodyParameters } from '../store/actions/bodyParameters';
+import { isPushToSetting } from '../logic/helpers/helpers';
+
 
 
 
@@ -41,21 +45,15 @@ export const MainEntry = () => {
     getData();
   });
 
-  /*   useEffect(() => {
-      const getData = async () => {
-        const data: BodyParameters = await getDataFromStorage(STORAGE_KEYS.BodyParameters);
-        if (!data.length) {
-          setDataToStorage(STORAGE_KEYS.BodyParameters, [initialBodyParameters]);
-          getData();
-        } else {
-          const { } = data[0] as BodyParameters
-          dispatch(saveSettingsParameters({ color, energy, language }));
-          setThemeColor(color)
-        }
-  
-      }
-      getData();
-    }); */
+
+  const { data } = useSelector((store: IStore) => store.bodyParameters);
+  useEffect(() => {
+    if (!data.length) {
+      dispatch(saveBodyParameters([initialBodyParameters]));
+    }
+  }, [data]);
+
+
 
   console.log(themeColor, 'context');
 

@@ -10,9 +10,9 @@ export const initialBodyParameters: BodyParameters = {
   age: 0,
   dateTime: 0,
   height: 0,
-  heightUnits: '',
+  heightUnits: 'CM',
   sex: '',
   weigh: 0,
-  weighUnits: ''
+  weighUnits: 'KG'
 
 }
