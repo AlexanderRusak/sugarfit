@@ -16,7 +16,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { BodyParameters as BodyType, SettingsParameters } from '../store/types/settingsParameters';
 import { ThemeContext } from '../context/ThemeContext';
 import { IStore } from '../store';
-import { saveBodyParameters } from '../store/actions/bodyParameters';
+import { loadBodyParameters, saveBodyParameters } from '../store/actions/bodyParameters';
 import { isPushToSetting } from '../logic/helpers/helpers';
 
 
@@ -46,17 +46,10 @@ export const MainEntry = () => {
   });
 
 
-  const { data } = useSelector((store: IStore) => store.bodyParameters);
   useEffect(() => {
-    if (!data.length) {
-      dispatch(saveBodyParameters([initialBodyParameters]));
-    }
-  }, [data]);
-
-
-
-  console.log(themeColor, 'context');
-
+    dispatch(loadBodyParameters());
+    /* dispatch(saveBodyParameters([initialBodyParameters])) */
+  }, []);
 
   return (
     <View style={styles.container}>

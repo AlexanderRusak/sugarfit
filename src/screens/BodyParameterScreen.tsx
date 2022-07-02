@@ -6,6 +6,7 @@ import { InputSection } from '../components/settings/InputSection';
 import { SelectSection } from '../components/settings/SelectSection';
 import { Button } from '../components/ui/Button/Button';
 import { BodyConfiguration } from '../constants/screens/screens';
+import { isFullBodyParameters } from '../logic/helpers/helpers';
 import { HEIGHT, WEIGH } from '../logic/measure/constants';
 import { saveBodyParameters } from '../store/actions/bodyParameters';
 import { BodyParameters } from '../store/types/settingsParameters';
@@ -28,8 +29,15 @@ export const BodyParameter = ({ route, navigation }: any) => {
 
   const [bodyState, setBodyDataState] = useState<BodyParameters>(bodyData[bodyData.length - 1]);
 
+
+
   const handleSave = () => {
-    dispatch(saveBodyParameters([...bodyData, bodyState]))
+    const lastBodyDataParameter = bodyData[bodyData.length - 1]
+    /*  console.log(lastBodyDataParameter, 'before'); */
+
+    isFullBodyParameters(lastBodyDataParameter) ?
+      dispatch(saveBodyParameters([...bodyData, bodyState])) :
+      dispatch(saveBodyParameters([{ ...lastBodyDataParameter, ...bodyState }]))
     navigation.navigate(BodyConfiguration)
   }
 

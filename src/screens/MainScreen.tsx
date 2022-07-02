@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FontAwesome5, SimpleLineIcons, Fontisto } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
@@ -8,13 +8,29 @@ import { SettingsScreen } from './SettingsScreen';
 import { SummaryScreen } from './SummaryScreen';
 import { WorkoutScreen } from './WorkoutScreen';
 import { theme } from '../styles/theme';
-import { Graphs, Settings, Summary, Workout } from '../constants/screens/screens';
+import { BodyConfiguration, Graphs, Settings, Summary, Workout } from '../constants/screens/screens';
 import { ThemeContext } from '../context/ThemeContext';
+import { useSelector } from 'react-redux';
+import { IStore } from '../store';
+import { Route, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import { isFullBodyParameters, isPushToSetting } from '../logic/helpers/helpers';
 
 
 export const MainScreen = () => {
 
-  const { themeColor } = useContext(ThemeContext)
+  const { themeColor } = useContext(ThemeContext);
+  const { navigate } = useNavigation()
+
+  const { data } = useSelector((store: IStore) => store.bodyParameters);
+  const isFocused = useIsFocused();
+
+
+
+  useEffect(() => {
+    console.log('here');
+
+    data.length && isPushToSetting(data[0], navigate)
+  }, [isFocused])
 
 
   const BottomTabs = createMaterialBottomTabNavigator();

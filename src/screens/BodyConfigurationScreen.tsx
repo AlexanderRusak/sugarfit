@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadBodyParameters, saveBodyParameters } from '../store/actions/bodyParameters';
 import { Dispatch } from 'redux';
 import { IStore } from '../store';
+import { isFullBodyParameters } from '../logic/helpers/helpers';
 
 
 export const BodyConfigurationScreen = ({ navigation }: any) => {
@@ -38,8 +39,18 @@ export const BodyConfigurationScreen = ({ navigation }: any) => {
 
 
   const handleSection = useCallback((data: string) => {
-    bodyParametersState && dispatch(saveBodyParameters([...bodyParameters, { ...bodyParametersState, 'sex': data }]));
-    bodyParametersState && setBodyParametersState({ ...bodyParametersState, 'sex': data });
+    const lastBodyDataParameter = bodyParameters[bodyParameters.length - 1];
+    console.log(lastBodyDataParameter, 'before sex', isFullBodyParameters(lastBodyDataParameter),);
+
+    isFullBodyParameters(lastBodyDataParameter) ? dispatch(saveBodyParameters([...bodyParameters, { ...bodyParametersState, 'sex': data }])) :
+      dispatch(saveBodyParameters([
+        {
+          ...lastBodyDataParameter,
+          'sex': data
+        }
+      ]))
+
+    setBodyParametersState({ ...bodyParametersState, 'sex': data });
 
   }, [bodyParametersState, navigation])
 

@@ -10,17 +10,8 @@ import { IStore } from '../store';
 export const SummaryScreen = () => {
 
   const { data } = useSelector((store: IStore) => store.bodyParameters);
-  const { navigate } = useNavigation()
-  console.log('ddddd');
-  const isFocused = useIsFocused();
-  console.log(isFocused);
 
 
-  useEffect(() => {
-    console.log(data, isFocused);
-
-    data.length && isPushToSetting(data[0], navigate)
-  }, [isFocused])
 
 
   const saturationSection = useMemo(() => {

@@ -15,8 +15,7 @@ export const saveBodyParameters = (data: BodyParameters[]) => {
 
 export const loadBodyParameters = () => {
   return async (dispatch: (arg0: { type: string; payload: BodyParameters[] }) => void) => {
-    const data = await getDataFromStorage(STORAGE_KEYS.BodyParameters) as BodyParameters[]
-    console.log(data, "action");
+    const data = await getDataFromStorage(STORAGE_KEYS.BodyParameters) as BodyParameters[];
     dispatch({
       type: LOAD_BODY_PARAMETERS,
       payload: [...data] as BodyParameters[]

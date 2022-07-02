@@ -14,8 +14,6 @@ export const setDataToStorage = async (key: STORAGE_KEYS, value: BodyParameters[
 export const getDataFromStorage = async (key: STORAGE_KEYS): Promise<BodyParameters[] | SettingsParameters | null> => {
   try {
     const jsonValue = await AsyncStorage.getItem(key);
-    console.log(jsonValue);
-
     return jsonValue ? JSON.parse(jsonValue) : null;
   } catch (e) {
     console.log("Get Error", e);

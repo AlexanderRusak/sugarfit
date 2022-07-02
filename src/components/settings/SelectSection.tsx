@@ -22,9 +22,6 @@ export const SelectSection = ({ title, defaultValue, dropDownArray, handleSelect
 
   const handleSelectHandler = useCallback((selectedItem: string) => {
     const valueIndex = dropDownArray.findIndex((item) => item.toLowerCase() === selectedItem.toLowerCase());
-    console.log(handleSelect);
-
-
     setSelectedValue((valueIndex > -1) ? valueIndex : -1);
 
     handleSelect(title === 'Color Schema' ? COLORS[selectedItem.replace(/\s+/g, '').toLowerCase() as 'burgundi' | 'veriperi'].value : selectedItem.toLowerCase(), title);
