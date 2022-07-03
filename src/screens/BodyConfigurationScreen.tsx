@@ -40,7 +40,6 @@ export const BodyConfigurationScreen = ({ navigation }: any) => {
 
   const handleSection = useCallback((data: string) => {
     const lastBodyDataParameter = bodyParameters[bodyParameters.length - 1];
-    console.log(lastBodyDataParameter, 'before sex', isFullBodyParameters(lastBodyDataParameter),);
 
     isFullBodyParameters(lastBodyDataParameter) ? dispatch(saveBodyParameters([...bodyParameters, { ...bodyParametersState, 'sex': data }])) :
       dispatch(saveBodyParameters([

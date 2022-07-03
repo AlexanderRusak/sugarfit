@@ -5,7 +5,7 @@ export async function bootstrap() {
     await DB.init();
     console.log('Data base started');
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 
 }

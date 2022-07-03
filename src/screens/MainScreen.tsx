@@ -13,7 +13,7 @@ import { ThemeContext } from '../context/ThemeContext';
 import { useSelector } from 'react-redux';
 import { IStore } from '../store';
 import { Route, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
-import { isFullBodyParameters, isPushToSetting } from '../logic/helpers/helpers';
+import { isPushToSetting } from '../logic/helpers/helpers';
 
 
 export const MainScreen = () => {
@@ -24,11 +24,7 @@ export const MainScreen = () => {
   const { data } = useSelector((store: IStore) => store.bodyParameters);
   const isFocused = useIsFocused();
 
-
-
   useEffect(() => {
-    console.log('here');
-
     data.length && isPushToSetting(data[0], navigate)
   }, [isFocused])
 

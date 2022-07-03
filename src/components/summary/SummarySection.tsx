@@ -48,16 +48,18 @@ export const SummarySection = ({ textValue, headerName, type }: SummarySectionPr
   };
 
   const handlePress = () => {
-    navigation.navigate(Graphs, {
+    navigation.navigate(Graphs as never, {
       data: type
-    })
+    } as never)
   }
 
 
 
   return <TouchableOpacity onPress={handlePress} style={{ ...styles.container, backgroundColor: color }}>
     <View style={styles.headerBlock} >
-      <Text style={styles.headerName}>{headerName}</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.headerName}>{headerName}</Text>
+      </View>
       <Image
         style={styles.image}
         source={sectionData[type as keyof typeof sectionData].src}
@@ -72,8 +74,8 @@ export const SummarySection = ({ textValue, headerName, type }: SummarySectionPr
 
 const styles = StyleSheet.create({
   container: {
-    width: '42%',
-    height: "28%",
+    width: '45%',
+    height: "30%",
     display: 'flex',
     flexDirection: 'column'
   },
@@ -81,7 +83,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+  },
+  textContainer: {
+    width: '50%',
   },
   headerName: {
     color: theme.colors.WHITE,
@@ -98,6 +103,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 50,
-    height: 50
+    height: 50,
   }
 })
